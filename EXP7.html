@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech News Aggregator</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+        }
+
+        header {
+            background: #14213d;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        nav {
+            background: #243b63;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav button {
+            padding: 10px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+            color: #14213d;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: #fca311;
+            color: white;
+        }
+
+        .search-box {
+            text-align: center;
+            padding: 25px;
+        }
+
+        #search {
+            width: 80%;
+            max-width: 500px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            background: white;
+            padding: 22px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px #00000012;
+            transition: transform 0.2s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category {
+            display: inline-block;
+            background: #e5edff;
+            color: #174ea6;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .news-card h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .news-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .news-card button {
+            background: #14213d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .news-card button:hover {
+            background: #fca311;
+        }
+
+        #message {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        footer {
+            margin-top: 30px;
+            background: #14213d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 25px;
+            }
+
+            #search {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Tech News Aggregator</h1>
+    <p>Discover the latest technology news in one place</p>
+</header>
+
+<nav>
+    <button class="active" data-category="All">All News</button>
+    <button data-category="AI">Artificial Intelligence</button>
+    <button data-category="Programming">Programming</button>
+    <button data-category="Cybersecurity">Cybersecurity</button>
+    <button data-category="Gadgets">Gadgets</button>
+</nav>
+
+<div class="search-box">
+    <input type="text" id="search"
+           placeholder="Search technology news...">
+</div>
+
+<div class="container">
+    <div class="news-grid">
+
+        <div class="news-card" data-category="AI">
+            <span class="category">AI</span>
+            <h2>Artificial Intelligence</h2>
+            <p>AI tools are helping businesses automate tasks
+               and improve productivity.</p>
+            <button class="read-more">Read More</button>
+            <p class="extra" style="display:none;">
+                AI is being used in education, healthcare,
+                robotics and many other industries.
+            </p>
+        </div>
+
+        <div class="news-card" data-category="Programming">
+            <span class="category">Programming</span>
+            <h2>Latest Programming Trends</h2>
+            <p>Python and JavaScript continue to be popular
+               choices for software development.</p>
+            <button class="read-more">Read More</button>
+            <p class="extra" style="display:none;">
+                Developers use these languages for web
+                development, automation, data science
+                and application development.
+            </p>
+        </div>
+
+        <div class="news-card" data-category="Cybersecurity">
+            <span class="category">Cybersecurity</span>
+            <h2>Online Security</h2>
+            <p>Strong passwords and multi-factor authentication
+               help protect online accounts.</p>
+            <button class="read-more">Read More</button>
+            <p class="extra" style="display:none;">
+                Regular updates, secure networks and phishing
+                awareness are important security practices.
+            </p>
+        </div>
+
+        <div class="news-card" data-category="Gadgets">
+            <span class="category">Gadgets</span>
+            <h2>Smartphone Technology</h2>
+            <p>Modern smartphones offer advanced cameras,
+               powerful processors and AI features.</p>
+            <button class="read-more">Read More</button>
+            <p class="extra" style="display:none;">
+                New mobile technologies focus on performance,
+                battery efficiency and improved user experience.
+            </p>
+        </div>
+
+        <div class="news-card" data-category="AI">
+            <span class="category">AI</span>
+            <h2>Machine Learning</h2>
+            <p>Machine learning helps computers identify
+               patterns and make predictions from data.</p>
+            <button class="read-more">Read More</button>
+            <p class="extra" style="display:none;">
+                Applications include recommendation systems,
+                fraud detection and image recognition.
+            </p>
+        </div>
+
+        <div class="news-card" data-category="Programming">
+            <span class="category">Programming</span>
+            <h2>Web Development</h2>
+            <p>HTML, CSS, JavaScript and jQuery are useful
+               technologies for building interactive websites.</p>
+            <button class="read-more">Read More</button>
+            <p class="extra" style="display:none;">
+                Frontend development focuses on user interfaces,
+                while backend development manages data and logic.
+            </p>
+        </div>
+
+    </div>
+
+    <p id="message">No news articles found.</p>
+</div>
+
+<footer>
+    <p>&copy; 2026 Tech News Aggregator | All Rights Reserved</p>
+</footer>
+
+<script>
+$(document).ready(function () {
+
+    // 1. Filter news by category
+    $("nav button").click(function () {
+        $("nav button").removeClass("active");
+        $(this).addClass("active");
+
+        let category = $(this).data("category");
+
+        $("#search").val("");
+
+        $(".news-card").each(function () {
+            if (category === "All" ||
+                $(this).data("category") === category) {
+                $(this).fadeIn();
+            } else {
+                $(this).hide();
+            }
+        });
+
+        checkNews();
+    });
+
+    // 2. Search news articles
+    $("#search").on("input", function () {
+        let keyword = $(this).val().toLowerCase();
+        let category = $("nav button.active").data("category");
+
+        $(".news-card").each(function () {
+            let text = $(this).text().toLowerCase();
+            let cardCategory = $(this).data("category");
+
+            if (text.includes(keyword) &&
+                (category === "All" || category === cardCategory)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+
+        checkNews();
+    });
+
+    // 3. Expand and collapse article details
+    $(".read-more").click(function () {
+        let extra = $(this).siblings(".extra");
+
+        extra.slideToggle();
+
+        if ($(this).text() === "Read More") {
+            $(this).text("Read Less");
+        } else {
+            $(this).text("Read More");
+        }
+    });
+
+    // 4. Display message when no articles match
+    function checkNews() {
+        if ($(".news-card:visible").length === 0) {
+            $("#message").fadeIn();
+        } else {
+            $("#message").hide();
+        }
+    }
+
+});
+</script>
+
+</body>
+</html>
